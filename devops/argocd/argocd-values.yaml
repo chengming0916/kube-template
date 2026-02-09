@@ -1,0 +1,53 @@
+# 适配版本 argo-cd-9.4.1
+## 全局配置
+global:
+  # 设置访问域名为 argocd.tjpengan.local
+  domain: argocd.tjpengan.local
+
+## Argo CD 核心配置
+configs:
+  cm:
+    # 启用本地 admin 用户（默认已启用，显式声明更清晰）
+    admin.enabled: true
+    # 可选：设置超时等，此处保持默认
+
+  params:
+    # ⚠️ 关键：禁用 Argo CD Server 的 HTTPS，让 Traefik 处理 TLS 或 HTTP
+    server.insecure: "true"
+
+## Server 配置
+server:
+  # 启用 Ingress，由 Traefik 接管
+  ingress:
+    enabled: true
+    # 指定 IngressClass 为 traefik（K3s 默认）
+    ingressClassName: "traefik"
+    tls: true
+    # extraTls:
+    #   - secretName: argocd-secret
+    #     hosts:
+    #       - argocd.tjpengan.local
+
+  service:
+    # 使用 ClusterIP，Traefik 通过 Service 发现后端
+    type: ClusterIP
+
+## Redis（Argo CD 必需，保持启用）
+redis:
+  enabled: true
+
+## 关闭通知模块节省资源
+notifications:
+  enabled: false
+
+## Dex（如无需 SSO 登录，可关闭以节省资源）
+dex:
+  enabled: false
+
+## 其他组件保持默认（CRD、RBAC 等均按模板默认开启）
+crds:
+  install: true
+  keep: true
+# 可选：设置初始 admin 密码（推荐）
+# secret:
+#   argocdServerAdminPassword: "$2a$10$your-bcrypt-hashed-password"
