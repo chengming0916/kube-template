@@ -36,7 +36,7 @@ data:
   REQUIRE_SIGNIN_VIEW: "true" # 仅允许已登录用户查看探索页面 
   ACTIONS_ENABLED: "false"
 
-  GITEA_webhook_ALLOWED_HOST_LIST: *.tjpengan.io
+  GITEA_webhook_ALLOWED_HOST_LIST: *.example.local
   GITEA_webhook_SKIP_TLS_VERIFY: "true"
 
   GITEA_packages_ENABLED: "false" # 禁用包注册表功能

@@ -12,8 +12,8 @@ expose:
   ingress:
     hosts:
       # 配置 Harbor 的访问域名，需要注意的是配置 notary 域名要和 core 处第一个单词外，其余保持一致
-      core: harbor.example.io
-      notary: notary.example.io
+      core: harbor.example.local
+      notary: notary.example.local
     controller: default
     annotations:
       ingress.kubernetes.io/ssl-redirect: "true"
@@ -27,7 +27,7 @@ expose:
       #nginx.ingress.kubernetes.io/proxy-body-size: "0"
 
 # 如果Harbor部署在代理后，将其设置为代理的URL，这个值一般要和上面的 Ingress 配置的地址保存一致
-externalURL: https://harbor.example.io 
+externalURL: https://harbor.example.local
 
 # Harbor 各个组件的持久化配置，并设置各个组件 existingClaim 参数为上面创建的对应 PVC 名称
 persistence:

@@ -26,6 +26,7 @@ KubeTemplate 是一个基于 Kubernetes 的模板集合，旨在帮助开发者�
 
 2. **配置 Ingress**：
    使用 `ingress.yaml` 配置外部访问，结合 Traefik 等 Ingress 控制器。
+   **注意**： 使用ingress时，traefik v2.x可用`apiVersion: traefik.containo.us/v1alpha1`,3.x中已移除，必须使用`apiVersion: traefik.io/v1alpha1`
 
 3. **配置自动补全**：
    - 对于 `kubectl`，请配置相应的自动补全脚本。

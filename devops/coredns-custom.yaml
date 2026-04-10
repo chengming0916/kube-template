@@ -1,4 +1,4 @@
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: IngressRouteUDP
 metadata:
   name: kube-dns-route
@@ -7,12 +7,12 @@ metadata:
     k8s-app: kube-dns
 spec:
   entryPoints:
-  - coredns
+    - coredns
   routes:
-  - match: HostSNI(`*`)
-    services:
-    - name: kube-dns
-      port: 53
+    - match: HostSNI(`*`)
+      services:
+        - name: kube-dns
+          port: 53
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -23,21 +23,21 @@ data:
   log.override: |
     log
   devops.server: |
-    example.io {
+    example.local {
         errors
         health
         ready
         cache 30
         hosts {
             # 注意此处127.0.0.1需修改未宿主机IP
-            127.0.0.1 whoami.example.io 
-            127.0.0.1 harbor.example.io 
-            127.0.0.1 traefik.example.io # traefik dashboard 
-            127.0.0.1 gitea.example.io
-            127.0.0.1 drone.example.io
-            127.0.0.1 sonar.example.io
-            127.0.0.1 tekton.example.io
-            127.0.0.1 argocd.example.io
+            127.0.0.1 whoami.example.local 
+            127.0.0.1 harbor.example.local 
+            127.0.0.1 traefik.example.local # traefik dashboard 
+            127.0.0.1 gitea.example.local
+            127.0.0.1 drone.example.local
+            127.0.0.1 sonar.example.local
+            127.0.0.1 tekton.example.local
+            127.0.0.1 argocd.example.local
             fallthrough
         }
         prometheus :9153

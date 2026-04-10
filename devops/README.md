@@ -47,7 +47,7 @@ kubectl apply -f ../whoami/whoami-cert.yaml
 kubectl apply -f ../whoami/whoami-ingress.yaml
 ```
 
-访问 https://whoami.example.io 查看是否有证书
+访问 https://whoami.example.local 查看是否有证书
 
 ### 部署PostgreSQL
 
@@ -83,8 +83,8 @@ helm upgrade harbor harbor/harbor --namespace harbor \
 
 docker配置私有镜像源
 ```bash
-sudo mkdir -p /etc/docker/certs.d/harbor.example.io
-sudo cp root-ca.crt /etc/docker/certs.d/harbor.example.io
+sudo mkdir -p /etc/docker/certs.d/harbor.example.local
+sudo cp root-ca.crt /etc/docker/certs.d/harbor.example.local
 sudo update-ca-trust extract  # 执行更新使证书生效
 ```
 
@@ -96,14 +96,14 @@ docker配置文件示例
         "https://mirror.ccs.tencentyun.com"
     ],
     "insecure-registries": [
-        "https://harbor.example.io"
+        "https://harbor.example.local"
     ]
 }
 ```
 
 只有登录成功才能推送镜像，所以配置完证书后尝试登录：
 ```bash
-docker login -u admin -p Harbor123456 harbor.example.io
+docker login -u admin -p Harbor123456 harbor.example.local
 ```
 
 ### 部署Gitea

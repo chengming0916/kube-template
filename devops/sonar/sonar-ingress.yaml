@@ -15,15 +15,15 @@ spec:
   renewBefore: 72h # 3d
   subject:
     organizations:
-    - Example .Inc
+      - Example .Inc
   dnsNames:
-  - sonar.example.io
+    - sonar.example.local
   issuerRef:
     name: selfsigned-cluster-issuer
     kind: ClusterIssuer
     group: cert-manager.io
 ---
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: sonar-ingress
@@ -32,13 +32,13 @@ metadata:
     traefik.ingress.kubernetes.io/service.sticky.cookie: "true"
 spec:
   entryPoints:
-  - websecure
+    - websecure
   routes:
-  - match: Host(`sonar.example.io`) && PathPrefix(`/`)
-    kind: Rule
-    services:
-    - name: sonar-qube
-      passHostHeader: true
-      port: 9000
+    - match: Host(`sonar.example.local`) && PathPrefix(`/`)
+      kind: Rule
+      services:
+        - name: sonar-qube
+          passHostHeader: true
+          port: 9000
   tls:
     secretName: sonar-secret

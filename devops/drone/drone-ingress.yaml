@@ -5,7 +5,7 @@ metadata:
   namespace: drone
 spec:
   isCA: false
-  commonName: "Example drone CI"
+  commonName: "Example Drone CI"
   secretName: drone-secret
   privateKey:
     algorithm: RSA
@@ -15,30 +15,30 @@ spec:
   renewBefore: 72h # 3d
   subject:
     organizations:
-    - Example .Inc
+      - Example .Inc
   dnsNames:
-  - drone.example.io
+    - drone.example.local
   issuerRef:
     name: selfsigned-cluster-issuer
     kind: ClusterIssuer
     group: cert-manager.io
 ---
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
- name: drone-ingress-websecure
- namespace: drone
- annotations:
-   traefik.ingress.kubernetes.io/service.sticky.cookie: "true"
+  name: drone-ingress-websecure
+  namespace: drone
+  annotations:
+    traefik.ingress.kubernetes.io/service.sticky.cookie: "true"
 spec:
- entryPoints:
-   - websecure
- routes:
-   - match: Host(`drone.example.io`) && PathPrefix(`/`)
-     kind: Rule
-     services:
-       - name: drone-server
-         passHostHeader: true
-         port: 80
- tls:
-   secretName: drone-secret
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`drone.example.local`) && PathPrefix(`/`)
+      kind: Rule
+      services:
+        - name: drone-server
+          passHostHeader: true
+          port: 80
+  tls:
+    secretName: drone-secret

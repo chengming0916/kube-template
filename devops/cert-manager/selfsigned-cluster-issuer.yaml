@@ -36,8 +36,8 @@ spec:
   duration: 87600h # 10year 有效期
   renewBefore: 360h # 15d 到期前续订
   dnsNames:
-    - "example.io"
-    - "*.example.io"
+    - "example.local"
+    - "*.example.local"
 ---
 # 集群内证书颁发机构
 apiVersion: cert-manager.io/v1

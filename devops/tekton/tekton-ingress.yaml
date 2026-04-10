@@ -15,15 +15,15 @@ spec:
   renewBefore: 72h # 3d
   subject:
     organizations:
-    - Example .Ltd
+      - Example .Ltd
   dnsNames:
-  - tekton.example.io
+    - tekton.example.local
   issuerRef:
     name: selfsigned-cluster-issuer
     kind: ClusterIssuer
     group: cert-manager.io
 ---
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: tekton-websecure
@@ -32,13 +32,13 @@ metadata:
     traefik.ingress.kubernetes.io/service.sticky.cookie: "true"
 spec:
   entryPoints:
-  - websecure
+    - websecure
   routes:
-  - match: Host(`tekton.example.io`) && PathPrefix(`/`)
-    kind: Rule
-    services:
-    - name: tekton-dashboard
-      passHostHeader: true
-      port: 9097
+    - match: Host(`tekton.example.local`) && PathPrefix(`/`)
+      kind: Rule
+      services:
+        - name: tekton-dashboard
+          passHostHeader: true
+          port: 9097
   tls:
     secretName: tekton-secret

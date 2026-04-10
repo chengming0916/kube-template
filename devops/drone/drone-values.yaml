@@ -70,7 +70,7 @@ ingress:
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: drone.example.io
+    - host: drone.example.local
       paths:
         - path: /
           pathType: Prefix
@@ -187,7 +187,7 @@ env:
   ## REQUIRED: Set the user-visible Drone hostname, sans protocol.
   ## Ref: https://docs.drone.io/installation/reference/drone-server-host/
   ##
-  DRONE_SERVER_HOST: "drone.example.io"
+  DRONE_SERVER_HOST: "drone.example.local"
   ## The protocol to pair with the value in DRONE_SERVER_HOST (http or https).
   ## Ref: https://docs.drone.io/installation/reference/drone-server-proto/
   ##
@@ -265,4 +265,3 @@ env:
   ## Ref: https://docs.drone.io/installation/providers/gogs/
   ##
   # DRONE_GOGS_SERVER:
-

@@ -15,15 +15,15 @@ spec:
   renewBefore: 72h # 3d
   subject:
     organizations:
-    - Example .Inc
+      - Example .Inc
   dnsNames:
-  - traefik.example.io
+    - traefik.example.local
   issuerRef:
     name: selfsigned-cluster-issuer
     kind: ClusterIssuer
     group: cert-manager.io
 ---
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: traefik-dashboard-websecure
@@ -33,7 +33,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`traefik.example.io`) && (PathPrefix(`/`) || PathPrefix(`/api`))
+      match: Host(`traefik.example.local`) && (PathPrefix(`/`) || PathPrefix(`/api`))
       services:
         - name: api@internal
           kind: TraefikService
